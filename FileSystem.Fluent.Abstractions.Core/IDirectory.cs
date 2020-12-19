@@ -8,9 +8,9 @@ namespace FileSystem.Fluent.Abstractions.Core
 	public interface IDirectory
 	{
         /// <summary>
-        /// Physical path of the directory
+        /// Information about the directory
         /// </summary>
-        string Path { get; }
+        IDirectoryInfo DirectoryInfo { get; }
         
         /// <summary>
         /// Create the directory as an empty directory if it doesn't exist. Also creates all the parent directories if they do not exist.
