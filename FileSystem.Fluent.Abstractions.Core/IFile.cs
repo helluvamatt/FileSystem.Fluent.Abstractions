@@ -10,6 +10,11 @@ namespace FileSystem.Fluent.Abstractions.Core
 	public interface IFile
 	{
         /// <summary>
+        /// Information about the file
+        /// </summary>
+        IFileInfo FileInto { get; }
+        
+        /// <summary>
         /// Try to create the file
         /// </summary>
         /// <remarks>
