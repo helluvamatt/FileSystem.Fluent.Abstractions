@@ -18,5 +18,9 @@
 		/// <param name="path">Path to the directory</param>
 		/// <returns>The IDirectory reference</returns>
 		IDirectory Directory(string path);
+		
+		IDirectory UserTempDirectory { get; }
+		
+		IDirectory ApplicationDataDirectory { get; }
 	}
 }
