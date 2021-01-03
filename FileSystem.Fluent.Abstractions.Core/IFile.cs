@@ -9,6 +9,8 @@ namespace FileSystem.Fluent.Abstractions.Core
     /// </summary>
 	public interface IFile
 	{
+        string Path { get; }
+        
         /// <summary>
         /// Try to create the file
         /// </summary>

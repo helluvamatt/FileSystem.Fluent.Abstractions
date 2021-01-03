@@ -7,6 +7,8 @@ namespace FileSystem.Fluent.Abstractions.Core
     /// </summary>
 	public interface IDirectory
 	{
+        string Path { get; }
+        
         /// <summary>
         /// Create the directory as an empty directory if it doesn't exist. Also creates all the parent directories if they do not exist.
         /// </summary>

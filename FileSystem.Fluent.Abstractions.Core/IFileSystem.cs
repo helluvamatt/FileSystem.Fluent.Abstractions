@@ -22,5 +22,7 @@
 		IDirectory UserTempDirectory { get; }
 		
 		IDirectory ApplicationDataDirectory { get; }
+
+		IFileSystem AsReadOnly();
 	}
 }

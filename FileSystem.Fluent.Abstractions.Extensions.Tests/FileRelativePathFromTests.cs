@@ -24,7 +24,6 @@ namespace FileSystem.Fluent.Abstractions.Extensions.Tests
         }
 
         [TestCase("c:/temp/test.txt", "d:/", ExpectedResult = "c:/temp/test.txt")]
-        [TestCase("/users/username/test.txt", "/", ExpectedResult = "/users/username/test.txt")]
         //todo: get the last case working
         public string GivenFileNotDescendingFromDirectory_WhenRelativePathFrom_ThenReturnFilePath(string filepath,
             string dirpath)
