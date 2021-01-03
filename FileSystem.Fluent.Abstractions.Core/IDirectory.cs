@@ -7,11 +7,27 @@ namespace FileSystem.Fluent.Abstractions.Core
     /// </summary>
 	public interface IDirectory
 	{
+        string Path { get; }
+        
         /// <summary>
         /// Create the directory as an empty directory if it doesn't exist. Also creates all the parent directories if they do not exist.
         /// </summary>
         /// <returns>The current directory, for chaining.</returns>
-        IDirectory TryCreate();
+        IDirectory Create();
+
+        /// <summary>
+        /// Creates an IFile for the given path relative to this IDirectory and returns it.
+        /// </summary>
+        /// <param name="relativePath">A path to a file relative to the current IDirectory</param>
+        /// <returns>A reference to the <c>IFile</c> specified.</returns>
+        IFile File(string relativePath);
+
+        /// <summary>
+        /// Creates an IDirectory for the given path relative to this IDirectory and returns it.
+        /// </summary>
+        /// <param name="relativePath">A path to a directory relative to the current IDirectory</param>
+        /// <returns>A reference to the <c>IDirectory</c> specified.</returns>
+        IDirectory Directory(string relativePath);
 
         /// <summary>
         /// Delete the directory only. Implementations may throw exceptions or do nothing if the directory is not empty.
@@ -59,5 +75,7 @@ namespace FileSystem.Fluent.Abstractions.Core
         /// <param name="action">Callback that receives the parent directory</param>
         /// <returns>The current directory, for chaining.</returns>
         IDirectory ForParent(Action<IDirectory> action);
+
+        IDirectoryInfo GetDirectoryInfo();
     }
 }

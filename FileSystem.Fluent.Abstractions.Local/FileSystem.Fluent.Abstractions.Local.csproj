@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net45</TargetFramework>
+        <RootNamespace>FileSystem.Fluent.Abstractions.Physical</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FileSystem.Fluent.Abstractions.Core\FileSystem.Fluent.Abstractions.Core.csproj" />
+    </ItemGroup>
+
+</Project>

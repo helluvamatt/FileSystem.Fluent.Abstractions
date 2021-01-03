@@ -9,6 +9,8 @@ namespace FileSystem.Fluent.Abstractions.Core
     /// </summary>
 	public interface IFile
 	{
+        string Path { get; }
+        
         /// <summary>
         /// Try to create the file
         /// </summary>
@@ -22,10 +24,27 @@ namespace FileSystem.Fluent.Abstractions.Core
         /// <summary>
         /// Copy the contents of the current File to the given destination
         /// </summary>
+        /// <param name="destinationPath">The path to copy the file to. The path is interpreted as relative to the source file's parent directory if an absolute path is not given.</param>
+        /// <param name="postCopyAction">Action to perform after the copy is complete. This is passed the source file as the first argument, and the destination file as the second argument.</param>
+        /// <returns>The current file, for chaining</returns>
+        IFile CopyTo(string destinationPath, Action<IFile, IFile> postCopyAction = null);
+
+        /// <summary>
+        /// Copy the contents of the current File to the given destination
+        /// </summary>
         /// <param name="destination">Destination file</param>
         /// <param name="postCopyAction">Action to perform after the copy is complete. This is passed the source file as the first argument, and the destination file as the second argument.</param>
         /// <returns>The current file, for chaining</returns>
         IFile CopyTo(IFile destination, Action<IFile, IFile> postCopyAction = null);
+
+        /// <summary>
+        /// Moves the given file to a new location. This will create all parent directories of the new path if they do not exist.
+        /// </summary>
+        /// <param name="destinationPath">The path to move the file to. The path is interpreted as relative to the source file's parent directory if an absolute path is not given.</param>
+        /// <param name="postMoveAction">Action to perform after the move is complete. This is passed the original <c>IFile</c> as the first argument and the <c>IFile</c> of the destination as the second argument.</param>
+        /// <returns>The current file, for chaining</returns>
+        /// <exception cref="FileNotFoundException">Throws a <c>FileNotFoundException</c> if the source file does not exist</exception>
+        IFile MoveTo(string destinationPath, Action<IFile, IFile> postMoveAction);
 
         /// <summary>
         /// Deletes the file
@@ -57,7 +76,7 @@ namespace FileSystem.Fluent.Abstractions.Core
         IFile OpenRead(Action<Stream> action);
 
         /// <summary>
-        /// Write the given contents to the file using the given encoding, the file is overwritten, but is not truncated. If you need to truncate the file first, use <see cref="TryCreate" />.
+        /// Write the given contents to the file using the given encoding, the file is either created or truncated to zero bytes and overwritten.
         /// </summary>
         /// <param name="contents">String contents to write to the file</param>
         /// <param name="encoding">Text encoding to use, defaults to UTF-8</param>
@@ -65,7 +84,7 @@ namespace FileSystem.Fluent.Abstractions.Core
         IFile WriteContents(string contents, Encoding encoding = null);
 
         /// <summary>
-        /// Append the given contents to the file using the given encoding.
+        /// Append the given contents to the file using the given encoding. The file will be created if it does not exist.
         /// </summary>
         /// <param name="contents">String contents to append to the file</param>
         /// <param name="encoding">Text encoding to use, defaults to UTF-8</param>
@@ -109,5 +128,7 @@ namespace FileSystem.Fluent.Abstractions.Core
         /// <param name="action">Callback that receives the parent directory</param>
         /// <returns>The current directory, for chaining.</returns>
         IFile ForParent(Action<IDirectory> action);
+
+        IFileInfo GetFileInfo();
     }
 }
